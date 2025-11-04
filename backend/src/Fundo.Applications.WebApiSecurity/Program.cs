@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using System;
-
-namespace Fundo.Applications.WebApi;
+using Fundo.Applications.WebApiSecurity;
+using Microsoft.AspNetCore;
 
 public static class Program
 {
@@ -17,7 +14,7 @@ public static class Program
             Console.WriteLine($"Unhandled WebApi exception: {ex.Message}");
         }
         finally
-        {
+        { 
             Console.WriteLine("Application shutting down.");
         }
     }

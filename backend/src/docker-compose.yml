@@ -1,0 +1,46 @@
+networks:
+  fundoapplications:
+
+services:
+  database:
+    container_name: fundo-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 8005:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=V@gner123
+    networks:
+      - fundoapplications 
+
+  fundoapplicationswebapi:
+    container_name: fundo-applications-webapi
+    image: ${DOCKER_REGISTRY-}fundoapplicationswebapi
+    build:
+      context: .
+      dockerfile: Fundo.Applications.WebApi/Dockerfile
+    ports:
+    - 5001:80
+    depends_on:
+      - database
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbLoans 
+      - DB_PASSWORD=V@gner123 
+     
+  fundoapplicationswebapisecurity:
+    container_name: fundo-applications-webapi-security
+    image: ${DOCKER_REGISTRY-}fundoapplicationswebapisecurity
+    build:
+      context: .
+      dockerfile: Fundo.Applications.WebApiSecurity/Dockerfile
+    ports:
+    - 5011:81
+    depends_on:
+      - database
+    environment:
+      - DB_HOST=database
+      - DB_NAME=dbLoans 
+      - DB_PASSWORD=V@gner123
+    networks:
+      - fundoapplications
