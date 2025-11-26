@@ -158,7 +158,7 @@ public class LoanManagementServiceTest
         _loanRepositoryMock.Setup(repo => repo.GetLoansAsync()).ReturnsAsync(expectedLoans);
 
         // Act
-        var result = await _loanManagementService.GetLoansAsync();
+        var result = await _loanManagementService.GetAllLoansAsync();
 
         // Assert
         result.Should().BeEquivalentTo(expectedLoans);

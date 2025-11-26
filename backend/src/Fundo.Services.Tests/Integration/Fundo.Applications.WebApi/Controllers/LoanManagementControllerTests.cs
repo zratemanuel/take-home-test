@@ -162,7 +162,7 @@ namespace Fundo.Services.Tests.Integration
             // Arrange:
             var token = await AuthenticateAsync();
             _clientLoan.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
+            
             var requestLoan = new
             {
                 Amount = 1000.0,
@@ -181,7 +181,7 @@ namespace Fundo.Services.Tests.Integration
             // Assert:
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
             var responseContent = await response.Content.ReadAsStringAsync();
-            Assert.Contains("Applicant not Exists", responseContent);
+            Assert.Contains("ApplicantId is required", responseContent);
         }
 
         [Fact]
